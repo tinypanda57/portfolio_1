@@ -21,7 +21,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           <S.Lable>Password</S.Lable>
           <S.Password
             type="password"
-            placeholder="password"
+            placeholder="passwords"
             onChange={props.onChangePassword}
           />
           <S.Error>{props.passwordError}</S.Error>
