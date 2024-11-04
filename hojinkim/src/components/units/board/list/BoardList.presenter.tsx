@@ -8,6 +8,8 @@ export default function BoardListUI(props: IBoardListUIProps) {
       <S.TableTop />
       <S.Row>
         <S.ColumnHeaderBasic>No.</S.ColumnHeaderBasic>
+        <S.ColumnHeaderTitle>Title22</S.ColumnHeaderTitle>
+        <S.ColumnHeaderBasic>No.22</S.ColumnHeaderBasic>
         <S.ColumnHeaderTitle>Title</S.ColumnHeaderTitle>
         <S.ColumnHeaderBasic>Writer</S.ColumnHeaderBasic>
         <S.ColumnHeaderBasic>Date</S.ColumnHeaderBasic>
@@ -28,7 +30,7 @@ export default function BoardListUI(props: IBoardListUIProps) {
       <S.Footer>
         <S.Button onClick={props.onClickMoveToBoardNew}>
           <S.PencilIcon src="/images/board/list/write.png" />
-          Post
+          Post!!
         </S.Button>
       </S.Footer>
     </S.Wraper>
