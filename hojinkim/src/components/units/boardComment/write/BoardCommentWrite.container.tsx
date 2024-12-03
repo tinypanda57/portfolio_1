@@ -8,12 +8,17 @@ import {
   IMutation,
   IMutationCreateBoardCommentArgs,
 } from "../../../../commons/types/generated/types";
+import {Flex, Rate} from "antd"
 
 export default function BoardCommentWrite() {
   const router = useRouter();
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
+  const [star, setStar] = useState(0)
+ 
+  
+  
 
   const [createBoardComment] = useMutation<
     Pick<IMutation, "createBoardComment">,
@@ -45,7 +50,7 @@ export default function BoardCommentWrite() {
             writer,
             password,
             contents,
-            rating: 0,
+            rating: star,
           },
           boardId: router.query.boardId,
         },
@@ -59,6 +64,10 @@ export default function BoardCommentWrite() {
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
+
+    setWriter("");
+    setPassword("");
+    setContents("");
   };
 
   return (
@@ -68,6 +77,10 @@ export default function BoardCommentWrite() {
       onChangeContents={onChangeContents}
       onClickWrite={onClickWrite}
       contents={contents}
+      setStar={setStar}
+      password={password}
+      writer={writer}
+   
     />
   );
 }

@@ -8,9 +8,8 @@ export default function BoardListUI(props: IBoardListUIProps) {
       <S.TableTop />
       <S.Row>
         <S.ColumnHeaderBasic>No.</S.ColumnHeaderBasic>
-        <S.ColumnHeaderTitle>Title22</S.ColumnHeaderTitle>
-        <S.ColumnHeaderBasic>No.22</S.ColumnHeaderBasic>
         <S.ColumnHeaderTitle>Title</S.ColumnHeaderTitle>
+
         <S.ColumnHeaderBasic>Writer</S.ColumnHeaderBasic>
         <S.ColumnHeaderBasic>Date</S.ColumnHeaderBasic>
       </S.Row>
