@@ -8,18 +8,24 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
       <S.PencilIcon src="/images/boardComment/write/pencil.png" />
 
       <S.InputWrapper>
-        <S.Input placeholder="wrtier" onChange={props.onChangeWriter} />
+        <S.Input placeholder="wrtier" onChange={props.onChangeWriter} 
+        value={props.writer}
+        />
         <S.Input
           type="password"
           placeholder="password"
           onChange={props.onChangePassword}
+          value={props.password}
         />
+        <S.Star onChange={props.setStar} />
       </S.InputWrapper>
       <S.ContentsWrapper>
         <S.Contents
           maxLength={100}
           placeholder="text"
           onChange={props.onChangeContents}
+
+          value={props.contents}
         />
         <S.BottomWrapper>
           <S.ContentsLength>{props.contents.length}/100</S.ContentsLength>

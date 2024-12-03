@@ -14,6 +14,8 @@ import { IBoardWriteProps } from "./BoardWrite.types";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const [isActive, setIsActive] = useState(false);
+ 
+
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -23,6 +25,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
 
+
+  
   const [createBoard] = useMutation<
     Pick<IMutation, "createBoard">,
     IMutationCreateBoardArgs
@@ -84,6 +88,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
+
+
+
   const onClickSubmit = async () => {
     if (!writer) {
       setWriterError("required");
@@ -106,6 +113,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
               password,
               title,
               contents,
+
             },
           },
         });
@@ -131,7 +139,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     const updateBoardInput: IUpdateBoardInput = {};
     if (title) updateBoardInput.title = title;
     if (contents) updateBoardInput.contents = contents;
-
+  
     try {
       if (typeof router.query.boardId !== "string") {
         alert("system has error");
@@ -165,6 +173,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       isEdit={props.isEdit}
       onClickUpdate={onClickUpdate}
       data={props.data}
+    
     />
   );
 }
