@@ -12,7 +12,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             type="text"
             placeholder="name"
             defaultValue={props.data?.fetchBoard.writer ?? ""}
-            readOnly={!!props.data?.fetchBoard.writer}
+            readOnly={Boolean(props.data?.fetchBoard.writer)}
             onChange={props.onChangeWriter}
           />
           <S.Error>{props.writerError}</S.Error>

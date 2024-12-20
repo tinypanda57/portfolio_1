@@ -11,12 +11,16 @@ import {
 } from "./BoardCommentList.queries";
 import BoardCommentListUI from "./BoardCommentList.presenter";
 import { useRouter } from "next/router";
-import { MouseEvent } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 
 export default function BoardCommentList(): JSX.Element {
   const router = useRouter();
-  if (!router || typeof router.query.boardId !== "string") return <></>;
+  if (typeof router.query.boardId !== "string") return <></>;
 
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [boardCommentId, setBoardCommentId] = useState("");
+  const [password, setPassword] = useState("");
+    
   const [deleteBoardComment] = useMutation<
     Pick<IMutation, "deleteBoardComment">,
     IMutationDeleteBoardCommentArgs
@@ -29,17 +33,12 @@ export default function BoardCommentList(): JSX.Element {
     variables: { boardId: router.query.boardId },
   });
 
-  const onClickDelete = async (event: MouseEvent<HTMLImageElement>) => {
-    const password = prompt("password");
+  const onClickDelete = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     try {
-      if (!(event.target instanceof HTMLImageElement)) {
-        alert("system error");
-        return;
-      }
       await deleteBoardComment({
         variables: {
           password,
-          boardCommentId: event.target.id,
+          boardCommentId,
         },
         refetchQueries: [
           {
@@ -48,10 +47,30 @@ export default function BoardCommentList(): JSX.Element {
           },
         ],
       });
+      setIsOpenDeleteModal(false)
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
   };
 
-  return <BoardCommentListUI data={data} onClickDelete={onClickDelete} />;
+  const onClickOpenDeleteModal = (
+    event: MouseEvent<HTMLImageElement>
+  ): void => {
+    setBoardCommentId(event.currentTarget.id);
+    setIsOpenDeleteModal(true);
+  };
+
+  const onChangeDeletePassword = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
+    setPassword(event.target.value);
+  };
+
+  return <BoardCommentListUI 
+   data={data}
+      onClickDelete={onClickDelete}
+      isOpenDeleteModal={isOpenDeleteModal}
+      onClickOpenDeleteModal={onClickOpenDeleteModal}
+      onChangeDeletePassword={onChangeDeletePassword}
+  />;
 }
