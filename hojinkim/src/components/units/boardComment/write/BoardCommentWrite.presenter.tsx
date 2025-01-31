@@ -4,12 +4,18 @@ import { IBoardCommentWriteUIProps } from "./BoardCommentWrite.types";
 export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
   return (
     <S.Wrapper>
-      <span>Comment </span>
-      <S.PencilIcon src="/images/boardComment/write/pencil.png" />
-
+      {props.isEdit === false && (
+        <>
+          <span>Comment </span>
+          <S.PencilIcon src="/images/boardComment/write/pencil.png" />
+        </>
+      )}
       <S.InputWrapper>
-        <S.Input placeholder="wrtier" onChange={props.onChangeWriter} 
-        value={props.writer}
+        <S.Input
+          placeholder="wrtier"
+          onChange={props.onChangeWriter}
+          value={props.writer !== "" ? props.writer : props.el?.writer ?? ""}
+          readOnly={props.isEdit}
         />
         <S.Input
           type="password"
@@ -24,12 +30,24 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
           maxLength={100}
           placeholder="text"
           onChange={props.onChangeContents}
-
-          value={props.contents}
+          value={
+            props.contents !== "" ? props.contents : props.el?.contents ?? ""
+          }
         />
         <S.BottomWrapper>
-          <S.ContentsLength>{props.contents.length}/100</S.ContentsLength>
-          <S.Button onClick={props.onClickWrite}> Submit</S.Button>
+          <S.ContentsLength>
+            {props.contents !== ""
+              ? props.contents.length
+              : props.el?.contents.length ?? 0}
+            /100
+          </S.ContentsLength>
+          <S.Button
+            onClick={
+              props.isEdit === true ? props.onClickUpdate : props.onClickWrite
+            }
+          >
+            Submit
+          </S.Button>
         </S.BottomWrapper>
       </S.ContentsWrapper>
     </S.Wrapper>
